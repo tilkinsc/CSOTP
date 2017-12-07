@@ -77,8 +77,24 @@ namespace MainProg
 			//   URI Example                                              //
 			// /////////////////////////////////////////////////////////////
 			
+			const String name1 = "name1";
+			const String name2 = "name2";
+			const String whatever1 = "account@whatever1.com";
+			const String whatever2 = "account@whatever2.com";
+			
+			// show example of URis
+			
+			// totp uri
+			String uri1 = OTPUri.build_uri(tdata, name1, whatever1, 0);
+			
+			// hotp uri
+			const int counter = 52;
+			String uri2 = OTPUri.build_uri(hdata, name2, whatever2, counter);
 			
 			
+			Console.WriteLine("TOTP URI 1: `" + uri1 + "`\n");
+			Console.WriteLine("HOTP URI 2: `" + uri2 + "`\n");
+				
 			
 			// /////////////////////////////////////////////////////////////
 			//   BASE32 Stuff                                             //
@@ -94,6 +110,7 @@ namespace MainProg
 				Console.WriteLine("Generated BASE32 Secret: `" + (Encoding.ASCII.GetString(base32_new_secret)) + "`");
 			} catch(BASE32FormatError e) {
 				Console.WriteLine(e);
+				Console.WriteLine("Did not generate a valid base32 byte array");
 				Environment.Exit(1);
 			}
 			
@@ -128,7 +145,7 @@ namespace MainProg
 				Console.WriteLine("TOTP Verification 2: `" + tv2 + "`");
 			} catch(Exception e) { // HMACGenerationError || BASE32FormatError
 				Console.WriteLine(e);
-				Console.WriteLine("TOTP Error 2");
+				Console.WriteLine("TOTP Error 1");
 				Environment.Exit(1);
 			}
 			

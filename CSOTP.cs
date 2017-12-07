@@ -299,4 +299,35 @@ namespace CSOTP
 			return this.compare(key, counter);
 		}
 	}
+	
+	public static class OTPUri {
+		
+		public static String build_uri(OTP data, String issuer, String name, int counter) {
+			String cissuer = Uri.EscapeDataString(issuer);
+			
+			String postarg = "";
+			String otp_type = "";
+			switch(data.method) {
+				case OTPType.TOTP:
+					otp_type = "totp";
+					postarg += "&period=" + ((TOTP)data).interval;
+					break;
+				case OTPType.HOTP:
+					otp_type = "hotp";
+					postarg += "&counter=" + counter;
+					break;
+				default:
+					otp_type = "otp";
+					break;
+			}
+			
+			String pre = "otpauth://" + otp_type + "/" + cissuer + ":" + Uri.EscapeDataString(name);
+			String args =
+				"?secret=" + Uri.EscapeDataString(Encoding.ASCII.GetString(data.base32_secret)) +
+				"&issuer=" + cissuer +
+				"&algorithm=" + Uri.EscapeDataString(Encoding.ASCII.GetString(data.digest)) +
+				"&digits=" + data.digits.ToString("G");
+			return pre + args + postarg;
+		}
+	}
 }
