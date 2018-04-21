@@ -19,10 +19,6 @@ Targeted at .NET 4.6.2, however the only problems you might have with older vers
 Add the whole CSOTP.cs file into your project, or modify it to your namespace liking, or include as an external build source. Leave out the Program.cs file, as this is a test file.
 
 
-## Description
-
-This was actually a spawn off pyotp, but I would necessarily say the code was copied. Things in python aren't in C#, therefore I had to make the methods myself. However, credits will go to the module for providing a guideline of what to do. [Here](https://github.com/pyotp/pyotp) you can find pyotp and realize how different it really is.
-
 
 _____________
 
